@@ -271,7 +271,6 @@
                 <button onclick="showPage('downloads')" class="btn-primary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95">
                     View Downloads
                 </button>
-                <!-- FIXED: Now redirects to internal Source section -->
                 <button onclick="showPage('source')" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
                     View Source
                 </button>
@@ -338,12 +337,41 @@
             <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
                 <div class="accent-glow" style="top: -10%; right: -10%;"></div>
                 <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Security Policy</h2>
-                <div class="space-y-16 text-gray-300 text-lg leading-relaxed">
-                    <div class="flex flex-col md:flex-row gap-10">
-                        <div class="text-emerald-400 font-black text-3xl">01</div>
+                
+                <div class="grid grid-cols-1 gap-12 text-gray-300 text-base leading-relaxed">
+                    <!-- Point 01 -->
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">01</div>
                         <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">Data Sovereignty</h3>
-                            <p>Every single byte of account data and configuration remains local to your device. We do not transmit identifiers to remote servers.</p>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Local Sovereignty</h3>
+                            <p>Every account credential, session token, and configuration file remains strictly local to your machine. Aurora Launcher does not host a database; your data is your own.</p>
+                        </div>
+                    </div>
+
+                    <!-- Point 02 -->
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">02</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Encryption & Auth</h3>
+                            <p>Authentication is handled directly through Microsoft/Xbox official OAuth flows. We do not intercept passwords. Tokens are stored using system-level local encryption where supported.</p>
+                        </div>
+                    </div>
+
+                    <!-- Point 03 -->
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">03</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Zero Telemetry</h3>
+                            <p>The launcher includes zero tracking scripts, analytics, or behavioral monitoring. Your usage patterns, IP address, and hardware details are never transmitted to us.</p>
+                        </div>
+                    </div>
+
+                    <!-- Point 04 -->
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">04</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Third Party Services</h3>
+                            <p>Connections are made only to official Minecraft (Mojang/Microsoft) and Modrinth APIs. Interactions with these services are subject to their respective privacy policies.</p>
                         </div>
                     </div>
                 </div>
@@ -357,12 +385,41 @@
             <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
                 <div class="accent-glow" style="bottom: -10%; left: -10%; background: #01cdfe;"></div>
                 <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Terms of Service</h2>
-                <div class="space-y-16 text-gray-300 text-lg leading-relaxed">
-                    <div class="flex flex-col md:flex-row gap-10">
-                        <div class="text-white font-black opacity-20 text-3xl italic">A</div>
+                
+                <div class="space-y-12 text-gray-300 text-base leading-relaxed">
+                    <!-- Section A -->
+                    <div class="flex gap-8">
+                        <div class="text-white font-black opacity-20 text-4xl italic">A</div>
                         <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">Disclaimer</h3>
-                            <p>Aurora Launcher is provided "as-is" without warranty. It is currently in a pre-release developmental state in 2026.</p>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Acceptance of Risk</h3>
+                            <p>Aurora Launcher is provided "as-is" without any express or implied warranty. As a developmental project, we are not responsible for game crashes, data loss, or server-side actions (bans) resulting from the use of built-in modules.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section B -->
+                    <div class="flex gap-8">
+                        <div class="text-white font-black opacity-20 text-4xl italic">B</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Intellectual Property</h3>
+                            <p>Minecraft assets, textures, and sounds are the property of Mojang Synergies AB and Microsoft Corporation. Aurora Launcher is an unofficial utility and is not affiliated with, endorsed by, or associated with Mojang or Microsoft.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section C -->
+                    <div class="flex gap-8">
+                        <div class="text-white font-black opacity-20 text-4xl italic">C</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">End User Conduct</h3>
+                            <p>Users are expected to adhere to the EULA of any servers they join. Use built-in modules responsibly. Unauthorized distribution of modified Aurora binaries as "official" is prohibited.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section D -->
+                    <div class="flex gap-8">
+                        <div class="text-white font-black opacity-20 text-4xl italic">D</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Development Status</h3>
+                            <p>Aurora is a solo development project. Features, UI, and functionality are subject to change without notice during the transition from master build to future iterations.</p>
                         </div>
                     </div>
                 </div>
