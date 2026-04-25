@@ -137,8 +137,7 @@
     <nav class="fixed w-full z-50 glass-nav py-4 px-6">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 cursor-pointer group" onclick="showPage('home')">
-                <div class="w-10 h-10 overflow-hidden rounded-lg shadow-2xl transition group-hover:scale-105">
-                    <!-- Your Requested Galaxy Icon SVG -->
+                <div class="w-10 h-10 rounded-lg shadow-2xl transition group-hover:scale-105">
                     <svg width="40" height="40" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                           <linearGradient id="sky_grad_icon" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnWrite">
@@ -250,17 +249,14 @@
     <!-- Page: Home -->
     <main id="page-home" class="page-content active pt-48 pb-32 px-6 text-center">
         <div class="max-w-4xl mx-auto">
-            <!-- Title with cutoff fix -->
             <h1 class="text-7xl md:text-9xl font-black mb-12 uppercase italic tracking-tighter text-white header-fix">
                 AURORA<br><span class="aurora-gradient-text">LAUNCHER</span>
             </h1>
             
-            <!-- Restored Description -->
             <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
                 Aurora Launcher is a personal project for playing Minecraft versions Beta 1.7.3 to 1.21.1. It features built-in tools like Fullbright, Modrinth browsing, custom themes, and was proudly built with a little help from AI.
             </p>
 
-            <!-- Advisory Section -->
             <div class="important-callout glass-card">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-3 h-3 rounded-full bg-[#B967FF] animate-pulse shadow-[0_0_10px_#B967FF]"></div>
@@ -268,15 +264,17 @@
                 </div>
                 <p class="text-gray-300 text-sm md:text-base leading-relaxed">
                     <span class="text-white font-black">IMPORTANT:</span> This is a massive work in progress. I'm working daily to polish every feature, so expect some things to be unfinished for now while I continue building the engine.
+                </p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-center gap-6 mt-14">
                 <button onclick="showPage('downloads')" class="btn-primary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95">
                     View Downloads
                 </button>
-                <a href="https://github.com/Justanuser-bits/Aurora-Launcher" target="_blank" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
+                <!-- FIXED: Now redirects to internal Source section -->
+                <button onclick="showPage('source')" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
                     View Source
-                </a>
+                </button>
             </div>
         </div>
     </main>
@@ -297,19 +295,38 @@
                     </div>
                     <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Windows Setup</h3>
                     <p class="text-gray-400 mb-10 text-sm leading-relaxed">Official .exe installer for Windows. Automatically configures portable runtimes and path settings.</p>
-                    <button class="btn-primary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em]">Download .exe Installer</button>
-                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Build 2026.04.25-Stable</span>
+                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/9b937c65-212c-4c47-91b2-6655fa037466?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A09%3A21Z&rscd=attachment%3B+filename%3DAuroraLauncher_Setup.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A08%3A29Z&ske=2026-04-25T23%3A09%3A21Z&sks=b&skv=2018-11-09&sig=3eahuysAo3c%2BeueempnX1kNQoGoBG6x%2FsYvF%2F3ffJTQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1Njg2OCwibmJmIjoxNzc3MTU2NTY4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.21XZ-64qopkLaInFInirO-7lVTjX3b8N1zmztpU0dwU&response-content-disposition=attachment%3B%20filename%3DAuroraLauncher_Setup.exe&response-content-type=application%2Foctet-stream'" class="btn-primary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em]">Download .exe Installer</button>
+                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Build 1.0.0-Master</span>
                 </div>
 
-                <!-- GitHub Releases -->
+                <!-- README Documentation -->
                 <div class="glass-card rounded-[40px] p-12 flex flex-col items-center text-center transition hover:border-purple-500/30">
                     <div class="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-8">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
-                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Manual Files</h3>
-                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Source code and advanced binaries. Access the Gradle project files and master branch directly.</p>
-                    <a href="https://github.com/Justanuser-bits/Aurora-Launcher/releases" target="_blank" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">GitHub Releases</a>
-                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Branch: Master</span>
+                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Manual & Readme</h3>
+                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Essential documentation for installation, built-in cheat modules, and performance troubleshooting.</p>
+                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/279b1e94-8a7f-4e84-9b6f-e86485a9893f?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A28%3A30Z&rscd=attachment%3B+filename%3DREADME.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A27%3A50Z&ske=2026-04-25T23%3A28%3A30Z&sks=b&skv=2018-11-09&sig=7PpYSmXQCZr%2FoaF%2BoKryulmE8l1on3gCcksDHFotOcw%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1NjkzMywibmJmIjoxNzc3MTU2NjMzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.1vayWm9pndDKBnG5G8f_vVnsDLxik6DCTOd7qU5nOmw&response-content-disposition=attachment%3B%20filename%3DREADME.txt&response-content-type=application%2Foctet-stream'" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">Download README.txt</button>
+                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Version: 1.0.0</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Source (Requested Redirect) -->
+    <main id="page-source" class="page-content pt-40 pb-32 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden text-center">
+                <div class="accent-glow" style="top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff4b4b; opacity: 0.05;"></div>
+                <div class="w-20 h-20 rounded-3xl bg-red-500/10 flex items-center justify-center text-red-400 mx-auto mb-8">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+                </div>
+                <h2 class="text-5xl font-black mb-8 uppercase italic aurora-gradient-text tracking-tighter header-fix">Access Restricted</h2>
+                <p class="text-gray-300 text-lg leading-relaxed max-w-lg mx-auto">
+                    oops this file is ither gone or not uploaded yet, please wait! The repository is currently undergoing final synchronization for the Master Release.
+                </p>
+                <div class="mt-12">
+                    <button onclick="showPage('home')" class="btn-secondary px-8 py-3 rounded-xl text-sm uppercase tracking-widest">Return Home</button>
                 </div>
             </div>
         </div>
@@ -356,7 +373,6 @@
     <!-- Footer -->
     <footer class="py-24 border-t border-white/5 text-center px-6">
         <div class="mb-8 opacity-20 hover:opacity-40 transition grayscale cursor-pointer" onclick="showPage('home')">
-            <!-- Icon at footer too -->
             <svg width="32" height="32" viewBox="0 0 512 512" class="mx-auto" fill="white">
                 <path d="M256 120L380 420H330L256 240L182 420H132L256 120Z"/>
             </svg>
