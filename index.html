@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Launcher | Official Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        body {
+            background-color: #000105;
+            color: #d1d5db;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        /* Persistent Galaxy Background */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, #4b008215 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, #00ff8808 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #020b24 0%, #000105 100%);
+        }
+
+        .aurora-gradient-text {
+            background: linear-gradient(135deg, #00FF95, #00F2FF, #B967FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 149, 0.2));
+        }
+
+        .glass-card {
+            background: rgba(15, 5, 36, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(185, 103, 255, 0.1);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        .glass-nav {
+            background: rgba(0, 1, 5, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00FF95, #00F2FF);
+            color: #000;
+            font-weight: 900;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 149, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Page Switcher Logic */
+        .page-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            width: 100%;
+        }
+
+        .page-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Advisory Section - Glowing & Distinct */
+        .important-callout {
+            border-left: 4px solid #B967FF;
+            background: rgba(185, 103, 255, 0.12);
+            padding: 2rem;
+            border-radius: 0 1.5rem 1.5rem 0;
+            margin-top: 3.5rem;
+            text-align: left;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: inset 0 0 30px rgba(185, 103, 255, 0.05);
+        }
+
+        /* FIX: Prevents italic text cutoff at the edges for the 'R' in Launcher */
+        .header-fix {
+            line-height: 1.2 !important;
+            padding-bottom: 0.2em;
+            padding-left: 0.1em;
+            padding-right: 0.8em; 
+            overflow: visible;
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.2; }
+        }
+
+        .accent-glow {
+            position: absolute;
+            width: 500px; height: 500px; background: #B967FF;
+            filter: blur(140px); opacity: 0.1; z-index: -1;
+            animation: pulse-glow 15s infinite ease-in-out;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000105; }
+        ::-webkit-scrollbar-thumb { background: #1a0a2e; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="page-bg"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full z-50 glass-nav py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="showPage('home')">
+                <div class="w-10 h-10 overflow-hidden rounded-lg shadow-2xl transition group-hover:scale-105">
+                    <!-- Your Requested Galaxy Icon SVG -->
+                    <svg width="40" height="40" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="sky_grad_icon" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnWrite">
+                            <stop stop-color="#000105"/>
+                            <stop offset="0.6" stop-color="#020b24"/>
+                            <stop offset="1" stop-color="#0f0524"/>
+                          </linearGradient>
+                          <linearGradient id="aurora_green_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00ff88" stop-opacity="0"/>
+                            <stop offset="50%" stop-color="#88ff00" stop-opacity="0.6"/>
+                            <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+                          </linearGradient>
+                          <linearGradient id="aurora_cyan_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00f2ff" stop-opacity="0"/>
+                            <stop offset="50%" stop-color="#0077ff" stop-opacity="0.5"/>
+                            <stop offset="100%" stop-color="#00f2ff" stop-opacity="0"/>
+                          </linearGradient>
+                          <linearGradient id="galaxy_dust_grad_icon" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ff00ff" stop-opacity="0"/>
+                            <stop offset="50%" stop-color="#4b0082" stop-opacity="0.15"/>
+                            <stop offset="100%" stop-color="#00ffff" stop-opacity="0"/>
+                          </linearGradient>
+                          <linearGradient id="shooting_star_grad_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="white" stop-opacity="0"/>
+                            <stop offset="90%" stop-color="white" stop-opacity="0.5"/>
+                            <stop offset="100%" stop-color="white" stop-opacity="1"/>
+                          </linearGradient>
+                          <filter id="aurora_glow_icon" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="15" result="blur"/>
+                            <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1.5 0" result="brightBlur"/>
+                            <feMerge>
+                              <feMergeNode in="brightBlur"/>
+                              <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                          </filter>
+                          <filter id="nebula_filter_icon" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="45" result="blur"/>
+                          </filter>
+                          <filter id="logo_glow_icon">
+                            <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="white" flood-opacity="0.3"/>
+                            <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="black" flood-opacity="0.6"/>
+                          </filter>
+                          <filter id="star_glow_icon">
+                            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                            <feMerge>
+                              <feMergeNode in="blur"/>
+                              <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                          </filter>
+                          <clipPath id="main_clip_icon">
+                            <rect width="512" height="512" />
+                          </clipPath>
+                        </defs>
+                        <g clip-path="url(#main_clip_icon)">
+                          <rect width="512" height="512" fill="url(#sky_grad_icon)"/>
+                          <circle cx="450" cy="50" r="150" fill="#ff00ff" opacity="0.12" filter="url(#nebula_filter_icon)"/>
+                          <circle cx="50" cy="450" r="180" fill="#00ffff" opacity="0.08" filter="url(#nebula_filter_icon)"/>
+                          <circle cx="256" cy="150" r="200" fill="#4b0082" opacity="0.15" filter="url(#nebula_filter_icon)"/>
+                          <circle cx="400" cy="400" r="120" fill="#ff71ce" opacity="0.1" filter="url(#nebula_filter_icon)"/>
+                          <circle cx="100" cy="100" r="130" fill="#01cdfe" opacity="0.08" filter="url(#nebula_filter_icon)"/>
+                          <path d="M-100 512 Q150 150 512 100" stroke="url(#galaxy_dust_grad_icon)" stroke-width="150" fill="none" filter="url(#nebula_filter_icon)"/>
+                          <g opacity="0.6">
+                            <circle cx="45" cy="88" r="0.8" fill="white" opacity="0.9"/>
+                            <circle cx="112" cy="45" r="1.1" fill="white" opacity="0.7"/>
+                            <circle cx="180" cy="130" r="0.6" fill="white" opacity="1"/>
+                            <circle cx="320" cy="90" r="1.3" fill="white" opacity="0.8"/>
+                            <circle cx="410" cy="160" r="0.9" fill="white" opacity="0.5"/>
+                            <circle cx="460" cy="60" r="1.2" fill="white" opacity="0.9"/>
+                            <circle cx="30" cy="190" r="0.7" fill="white" opacity="0.6"/>
+                            <circle cx="280" cy="30" r="1.1" fill="white" opacity="0.8"/>
+                            <circle cx="490" cy="310" r="0.8" fill="white" opacity="0.7"/>
+                            <circle cx="220" cy="480" r="1.4" fill="white" opacity="0.4"/>
+                            <circle cx="60" cy="420" r="0.9" fill="white" opacity="0.8"/>
+                            <circle cx="390" cy="440" r="1.1" fill="white" opacity="0.6"/>
+                            <circle cx="200" cy="200" r="0.5" fill="white" opacity="0.8"/>
+                            <circle cx="350" cy="350" r="0.7" fill="white" opacity="0.6"/>
+                            <circle cx="150" cy="400" r="0.5" fill="white" opacity="0.9"/>
+                            <circle cx="450" cy="150" r="0.6" fill="white" opacity="0.7"/>
+                          </g>
+                          <g transform="rotate(-20, 420, 80)">
+                            <line x1="280" y1="80" x2="440" y2="80" stroke="url(#shooting_star_grad_icon)" stroke-width="1.2" stroke-linecap="round" filter="url(#star_glow_icon)"/>
+                            <circle cx="440" cy="80" r="1.2" fill="white" filter="url(#star_glow_icon)"/>
+                          </g>
+                          <g transform="rotate(10, 100, 300)">
+                            <line x1="0" y1="300" x2="120" y2="300" stroke="url(#shooting_star_grad_icon)" stroke-width="0.8" stroke-linecap="round" opacity="0.4" filter="url(#star_glow_icon)"/>
+                            <circle cx="120" cy="300" r="0.8" fill="white" opacity="0.5" filter="url(#star_glow_icon)"/>
+                          </g>
+                          <g filter="url(#aurora_glow_icon)">
+                            <path d="M-50 400 Q150 100 300 350 T560 200" stroke="url(#aurora_green_icon)" stroke-width="120" stroke-linecap="round" fill="none"/>
+                            <path d="M-50 450 Q200 150 350 400 T560 250" stroke="url(#aurora_cyan_icon)" stroke-width="80" stroke-linecap="round" fill="none"/>
+                          </g>
+                          <path d="M256 120L380 420H330L256 240L182 420H132L256 120Z" fill="white" filter="url(#logo_glow_icon)"/>
+                          <path d="M256 120L310 250L256 230L202 250L256 120Z" fill="white" opacity="0.1"/>
+                        </g>
+                      </svg>
+                </div>
+                <span class="text-2xl font-black uppercase italic aurora-gradient-text tracking-tighter">Aurora</span>
+            </div>
+            
+            <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
+                <button onclick="showPage('home')" class="hover:text-white transition">Home</button>
+                <button onclick="showPage('downloads')" class="hover:text-white transition">Downloads</button>
+                <button onclick="showPage('privacy')" class="hover:text-emerald-400 transition">Privacy</button>
+                <button onclick="showPage('tos')" class="hover:text-purple-400 transition">Terms</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page: Home -->
+    <main id="page-home" class="page-content active pt-48 pb-32 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <!-- Title with cutoff fix -->
+            <h1 class="text-7xl md:text-9xl font-black mb-12 uppercase italic tracking-tighter text-white header-fix">
+                AURORA<br><span class="aurora-gradient-text">LAUNCHER</span>
+            </h1>
+            
+            <!-- Restored Description -->
+            <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+                Aurora Launcher is a personal project dedicated to playing Minecraft versions from Beta 1.7.3 to 1.21.1. It includes built-in tools like Fullbright, Modrinth browsing, and custom themes.
+            </p>
+
+            <!-- Advisory Section -->
+            <div class="important-callout glass-card">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-3 h-3 rounded-full bg-[#B967FF] animate-pulse shadow-[0_0_10px_#B967FF]"></div>
+                    <p class="text-xs font-black uppercase tracking-[0.3em] text-[#B967FF]">System Advisory</p>
+                </div>
+                <p class="text-gray-300 text-sm md:text-base leading-relaxed">
+                    <span class="text-white font-black">IMPORTANT:</span> This is a massive work in progress. I am working daily to polish every feature, so expect some things to be unfinished for now while I continue building the engine.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 mt-14">
+                <button onclick="showPage('downloads')" class="btn-primary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95">
+                    View Downloads
+                </button>
+                <a href="https://github.com/Justanuser-bits/Aurora-Launcher" target="_blank" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
+                    View Source
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Downloads -->
+    <main id="page-downloads" class="page-content pt-40 pb-32 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black uppercase italic aurora-gradient-text mb-4 header-fix">Build Portal</h2>
+                <p class="text-gray-400 uppercase tracking-widest text-xs font-bold">Official Distribution Channels</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Windows Setup -->
+                <div class="glass-card rounded-[40px] p-12 flex flex-col items-center text-center transition hover:border-emerald-500/30">
+                    <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-8">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Windows Setup</h3>
+                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Official .exe installer for Windows. Automatically configures portable runtimes and path settings.</p>
+                    <button class="btn-primary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em]">Download .exe Installer</button>
+                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Build 2026.04.25-Stable</span>
+                </div>
+
+                <!-- GitHub Releases -->
+                <div class="glass-card rounded-[40px] p-12 flex flex-col items-center text-center transition hover:border-purple-500/30">
+                    <div class="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-8">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Manual Files</h3>
+                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Source code and advanced binaries. Access the Gradle project files and master branch directly.</p>
+                    <a href="https://github.com/Justanuser-bits/Aurora-Launcher/releases" target="_blank" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">GitHub Releases</a>
+                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Branch: Master</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Privacy -->
+    <main id="page-privacy" class="page-content pt-40 pb-32 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
+                <div class="accent-glow" style="top: -10%; right: -10%;"></div>
+                <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Security Policy</h2>
+                <div class="space-y-16 text-gray-300 text-lg leading-relaxed">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="text-emerald-400 font-black text-3xl">01</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">Data Sovereignty</h3>
+                            <p>Every single byte of account data and configuration remains local to your device. We do not transmit identifiers to remote servers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Page: Terms -->
+    <main id="page-tos" class="page-content pt-40 pb-32 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
+                <div class="accent-glow" style="bottom: -10%; left: -10%; background: #01cdfe;"></div>
+                <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Terms of Service</h2>
+                <div class="space-y-16 text-gray-300 text-lg leading-relaxed">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="text-white font-black opacity-20 text-3xl italic">A</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">Disclaimer</h3>
+                            <p>Aurora Launcher is provided "as-is" without warranty. It is currently in a pre-release developmental state in 2026.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-24 border-t border-white/5 text-center px-6">
+        <div class="mb-8 opacity-20 hover:opacity-40 transition grayscale cursor-pointer" onclick="showPage('home')">
+            <!-- Icon at footer too -->
+            <svg width="32" height="32" viewBox="0 0 512 512" class="mx-auto" fill="white">
+                <path d="M256 120L380 420H330L256 240L182 420H132L256 120Z"/>
+            </svg>
+        </div>
+        <p class="text-[11px] font-black uppercase tracking-[0.5em] text-gray-700">
+            Aurora Launcher Project &bull; &copy; 2026 &bull; Solo Development Build
+        </p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                if (page.classList.contains('active')) {
+                    page.style.opacity = '0';
+                    page.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        page.classList.remove('active');
+                        triggerEnter(pageId);
+                    }, 200);
+                }
+            });
+            if (!document.querySelector('.page-content.active')) triggerEnter(pageId);
+            history.pushState(null, null, '#' + pageId);
+        }
+
+        function triggerEnter(pageId) {
+            const target = document.getElementById('page-' + pageId) || document.getElementById('page-home');
+            target.classList.add('active');
+            setTimeout(() => {
+                target.style.opacity = '1';
+                target.style.transform = 'translateY(0)';
+            }, 50);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onpopstate = () => showPage(window.location.hash.replace('#', '') || 'home');
+        window.onload = () => showPage(window.location.hash.replace('#', '') || 'home');
+    </script>
+</body>
+</html>
