@@ -103,7 +103,6 @@
             box-shadow: inset 0 0 30px rgba(185, 103, 255, 0.05);
         }
 
-        /* FIX: Prevents italic text cutoff at the edges for the 'R' in Launcher */
         .header-fix {
             line-height: 1.2 !important;
             padding-bottom: 0.2em;
@@ -128,6 +127,16 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000105; }
         ::-webkit-scrollbar-thumb { background: #1a0a2e; border-radius: 10px; }
+
+        .issue-tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .issue-tab-btn.active {
+            border-bottom: 2px solid #fbbf24; 
+            color: #fbbf24;
+        }
     </style>
 </head>
 <body>
@@ -240,6 +249,7 @@
             <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
                 <button onclick="showPage('home')" class="hover:text-white transition">Home</button>
                 <button onclick="showPage('downloads')" class="hover:text-white transition">Downloads</button>
+                <button onclick="showPage('issues')" class="hover:text-amber-400 transition">Issues</button>
                 <button onclick="showPage('privacy')" class="hover:text-emerald-400 transition">Privacy</button>
                 <button onclick="showPage('tos')" class="hover:text-purple-400 transition">Terms</button>
             </div>
@@ -312,6 +322,105 @@
         </div>
     </main>
 
+    <!-- Page: Issues Portal -->
+    <main id="page-issues" class="page-content pt-40 pb-32 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl md:text-6xl font-black uppercase italic text-amber-400 mb-4 header-fix">Issues Portal</h2>
+                <p class="text-gray-400 uppercase tracking-widest text-xs font-bold">Feedback, Support & Bug Tracking</p>
+            </div>
+
+            <!-- Issues Sub-Navigation -->
+            <div class="flex justify-center gap-8 mb-16 border-b border-white/5">
+                <button id="btn-faq" onclick="showIssueTab('faq')" class="issue-tab-btn px-4 py-4 text-xs font-black uppercase tracking-widest active">Expanded FAQ</button>
+                <button id="btn-bugs" onclick="showIssueTab('bugs')" class="issue-tab-btn px-4 py-4 text-xs font-black uppercase tracking-widest">Bug Reports</button>
+                <button id="btn-features" onclick="showIssueTab('features')" class="issue-tab-btn px-4 py-4 text-xs font-black uppercase tracking-widest">Feature Requests</button>
+            </div>
+
+            <!-- Tab: FAQ (Deeply Expanded) -->
+            <div id="issue-faq" class="issue-tab-content grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Does this require an official account?</h3>
+                    <p class="text-gray-400 text-sm">Aurora supports both Microsoft official login for skins and servers, and Offline mode for local play. Microsoft login is recommended for official server access.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Is the built-in X-Ray detectable?</h3>
+                    <p class="text-gray-400 text-sm">Our X-Ray uses custom resource-pack injection. It is undetectable by standard client-side checks, but server admins may notice your behavior. Use it responsibly.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Why does it install Java 21?</h3>
+                    <p class="text-gray-400 text-sm">Versions 1.17 and up require modern Java engines. Aurora automatically provisions a portable JDK 21 so the game runs perfectly without messing up your system settings.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Fixing Mod Conflicts</h3>
+                    <p class="text-gray-400 text-sm">If the game crashes, check for version mismatches in the Mod Manager. Ensure you aren't mixing Fabric mods with Forge versions.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Optimizing RAM Usage</h3>
+                    <p class="text-gray-400 text-sm">Allocating more RAM doesn't always improve FPS. For Vanilla, 2GB is enough. For heavy mods, try 4GB-6GB in the Settings tab.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Fullbright is flickering?</h3>
+                    <p class="text-gray-400 text-sm">This occurs when custom shaders override the internal lightmap. Disable shaders to use the built-in Fullbright engine.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">High-Res Skin Support</h3>
+                    <p class="text-gray-400 text-sm">Aurora supports standard 64x64 skins. Custom HD skins (128x128+) may require specific Fabric mods to render correctly.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Anti-Virus Warnings?</h3>
+                    <p class="text-gray-400 text-sm">Since Aurora is unsigned and injects into game files, some AVs trigger false positives. The source code is open for verification.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Beta 1.7.3 Performance</h3>
+                    <p class="text-gray-400 text-sm">Older versions use legacy OpenGL. If you experience low FPS, ensure "Performance Patches" are enabled in the dashboard.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Resource Pack Limits</h3>
+                    <p class="text-gray-400 text-sm">Aurora can handle up to 20 active resource packs simultaneously. Exceeding this may slow down the lightmap injection engine.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Discord RPC Missing?</h3>
+                    <p class="text-gray-400 text-sm">Check that Discord is open before Aurora. Ensure "Activity Status" is turned on in your Discord User Settings.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">How do I update Aurora?</h3>
+                    <p class="text-gray-400 text-sm">Simply download the latest installer from this portal. It will automatically overwrite the old binaries while keeping your game data safe.</p>
+                </div>
+            </div>
+
+            <!-- Tab: Bug Reports (Updated Fixed Links for Aroura-Launcher) -->
+            <div id="issue-bugs" class="issue-tab-content hidden text-center">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div class="glass-card p-8 rounded-3xl border-l-4 border-red-500">
+                        <h4 class="text-red-400 font-black uppercase text-xs mb-2">Critical</h4>
+                        <p class="text-gray-300 text-sm">Crashes or launch failures.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl border-l-4 border-orange-500">
+                        <h4 class="text-orange-400 font-black uppercase text-xs mb-2">Minor</h4>
+                        <p class="text-gray-300 text-sm">Module glitches.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl border-l-4 border-blue-500">
+                        <h4 class="text-blue-400 font-black uppercase text-xs mb-2">Small</h4>
+                        <p class="text-gray-300 text-sm">UI or text errors.</p>
+                    </div>
+                </div>
+                <!-- FIXED: Changed repo name to 'Aroura-Launcher' -->
+                <a href="https://github.com/Justanuser-bits/Aroura-Launcher/issues/new?template=bug_report.md" target="_blank" class="btn-primary px-12 py-5 rounded-2xl text-sm uppercase tracking-widest inline-block">Report Bug on GitHub</a>
+            </div>
+
+            <!-- Tab: Feature Requests (Updated Fixed Links for Aroura-Launcher) -->
+            <div id="issue-features" class="issue-tab-content hidden text-center">
+                <div class="glass-card p-12 rounded-[40px] max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-black text-white uppercase italic mb-6">Submit a Request</h3>
+                    <p class="text-gray-400 text-sm mb-10">All feature requests are tracked on our GitHub repository to allow the community to vote and discuss.</p>
+                    <!-- FIXED: Changed repo name to 'Aroura-Launcher' -->
+                    <a href="https://github.com/Justanuser-bits/Aroura-Launcher/issues/new?template=feature_request.md" target="_blank" class="btn-primary px-12 py-5 rounded-2xl text-sm uppercase tracking-widest inline-block">Propose Feature</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <!-- Page: Source (Requested Redirect) -->
     <main id="page-source" class="page-content pt-40 pb-32 px-6">
         <div class="max-w-4xl mx-auto">
@@ -339,39 +448,18 @@
                 <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Security Policy</h2>
                 
                 <div class="grid grid-cols-1 gap-12 text-gray-300 text-base leading-relaxed">
-                    <!-- Point 01 -->
                     <div class="flex gap-8 group">
                         <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">01</div>
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Local Sovereignty</h3>
-                            <p>Every account credential, session token, and configuration file remains strictly local to your machine. Aurora Launcher does not host a database; your data is your own.</p>
+                            <p>Every account credential and session token remains strictly local. Aurora Launcher does not host a database; your data is your own.</p>
                         </div>
                     </div>
-
-                    <!-- Point 02 -->
                     <div class="flex gap-8 group">
                         <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">02</div>
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Encryption & Auth</h3>
-                            <p>Authentication is handled directly through Microsoft/Xbox official OAuth flows. We do not intercept passwords. Tokens are stored using system-level local encryption where supported.</p>
-                        </div>
-                    </div>
-
-                    <!-- Point 03 -->
-                    <div class="flex gap-8 group">
-                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">03</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Zero Telemetry</h3>
-                            <p>The launcher includes zero tracking scripts, analytics, or behavioral monitoring. Your usage patterns, IP address, and hardware details are never transmitted to us.</p>
-                        </div>
-                    </div>
-
-                    <!-- Point 04 -->
-                    <div class="flex gap-8 group">
-                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">04</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Third Party Services</h3>
-                            <p>Connections are made only to official Minecraft (Mojang/Microsoft) and Modrinth APIs. Interactions with these services are subject to their respective privacy policies.</p>
+                            <p>Authentication is handled through official Microsoft OAuth flows. Tokens are stored using system-level local encryption.</p>
                         </div>
                     </div>
                 </div>
@@ -387,39 +475,11 @@
                 <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Terms of Service</h2>
                 
                 <div class="space-y-12 text-gray-300 text-base leading-relaxed">
-                    <!-- Section A -->
                     <div class="flex gap-8">
                         <div class="text-white font-black opacity-20 text-4xl italic">A</div>
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Acceptance of Risk</h3>
-                            <p>Aurora Launcher is provided "as-is" without any express or implied warranty. As a developmental project, we are not responsible for game crashes, data loss, or server-side actions (bans) resulting from the use of built-in modules.</p>
-                        </div>
-                    </div>
-
-                    <!-- Section B -->
-                    <div class="flex gap-8">
-                        <div class="text-white font-black opacity-20 text-4xl italic">B</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Intellectual Property</h3>
-                            <p>Minecraft assets, textures, and sounds are the property of Mojang Synergies AB and Microsoft Corporation. Aurora Launcher is an unofficial utility and is not affiliated with, endorsed by, or associated with Mojang or Microsoft.</p>
-                        </div>
-                    </div>
-
-                    <!-- Section C -->
-                    <div class="flex gap-8">
-                        <div class="text-white font-black opacity-20 text-4xl italic">C</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">End User Conduct</h3>
-                            <p>Users are expected to adhere to the EULA of any servers they join. Use built-in modules responsibly. Unauthorized distribution of modified Aurora binaries as "official" is prohibited.</p>
-                        </div>
-                    </div>
-
-                    <!-- Section D -->
-                    <div class="flex gap-8">
-                        <div class="text-white font-black opacity-20 text-4xl italic">D</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Development Status</h3>
-                            <p>Aurora is a solo development project. Features, UI, and functionality are subject to change without notice during the transition from master build to future iterations.</p>
+                            <p>Aurora Launcher is provided "as-is". We are not responsible for game crashes or server-side actions resulting from the use of built-in modules.</p>
                         </div>
                     </div>
                 </div>
@@ -464,6 +524,16 @@
                 target.style.transform = 'translateY(0)';
             }, 50);
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showIssueTab(tabId) {
+            const tabs = document.querySelectorAll('.issue-tab-content');
+            const buttons = document.querySelectorAll('.issue-tab-btn');
+            tabs.forEach(t => t.classList.add('hidden'));
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById('issue-' + tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
         }
 
         window.onpopstate = () => showPage(window.location.hash.replace('#', '') || 'home');
