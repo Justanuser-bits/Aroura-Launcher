@@ -146,35 +146,36 @@
     <nav class="fixed w-full z-50 glass-nav py-4 px-6">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 cursor-pointer group" onclick="showPage('home')">
-                <div class="w-10 h-10 rounded-lg shadow-2xl transition group-hover:scale-105">
-                    <svg width="40" height="40" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="w-10 h-10 overflow-hidden rounded-lg shadow-2xl transition group-hover:scale-105">
+                    <!-- NEW PROVIDED SVG LOGO -->
+                    <svg width="100%" height="100%" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                          <linearGradient id="sky_grad_icon" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnWrite">
+                          <linearGradient id="sky_grad_nav" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnWrite">
                             <stop stop-color="#000105"/>
                             <stop offset="0.6" stop-color="#020b24"/>
                             <stop offset="1" stop-color="#0f0524"/>
                           </linearGradient>
-                          <linearGradient id="aurora_green_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <linearGradient id="aurora_green_nav" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="#00ff88" stop-opacity="0"/>
                             <stop offset="50%" stop-color="#88ff00" stop-opacity="0.6"/>
                             <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
                           </linearGradient>
-                          <linearGradient id="aurora_cyan_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <linearGradient id="aurora_cyan_nav" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="#00f2ff" stop-opacity="0"/>
                             <stop offset="50%" stop-color="#0077ff" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="#00f2ff" stop-opacity="0"/>
                           </linearGradient>
-                          <linearGradient id="galaxy_dust_grad_icon" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <linearGradient id="galaxy_dust_grad_nav" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#ff00ff" stop-opacity="0"/>
                             <stop offset="50%" stop-color="#4b0082" stop-opacity="0.15"/>
                             <stop offset="100%" stop-color="#00ffff" stop-opacity="0"/>
                           </linearGradient>
-                          <linearGradient id="shooting_star_grad_icon" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <linearGradient id="shooting_star_grad_nav" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="white" stop-opacity="0"/>
                             <stop offset="90%" stop-color="white" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="white" stop-opacity="1"/>
                           </linearGradient>
-                          <filter id="aurora_glow_icon" x="-50%" y="-50%" width="200%" height="200%">
+                          <filter id="aurora_glow_nav" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="15" result="blur"/>
                             <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1.5 0" result="brightBlur"/>
                             <feMerge>
@@ -182,32 +183,32 @@
                               <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                           </filter>
-                          <filter id="nebula_filter_icon" x="-50%" y="-50%" width="200%" height="200%">
+                          <filter id="nebula_filter_nav" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="45" result="blur"/>
                           </filter>
-                          <filter id="logo_glow_icon">
+                          <filter id="logo_glow_nav">
                             <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="white" flood-opacity="0.3"/>
                             <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="black" flood-opacity="0.6"/>
                           </filter>
-                          <filter id="star_glow_icon">
+                          <filter id="star_glow_nav">
                             <feGaussianBlur stdDeviation="1.5" result="blur"/>
                             <feMerge>
                               <feMergeNode in="blur"/>
                               <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                           </filter>
-                          <clipPath id="main_clip_icon">
+                          <clipPath id="main_clip_nav">
                             <rect width="512" height="512" />
                           </clipPath>
                         </defs>
-                        <g clip-path="url(#main_clip_icon)">
-                          <rect width="512" height="512" fill="url(#sky_grad_icon)"/>
-                          <circle cx="450" cy="50" r="150" fill="#ff00ff" opacity="0.12" filter="url(#nebula_filter_icon)"/>
-                          <circle cx="50" cy="450" r="180" fill="#00ffff" opacity="0.08" filter="url(#nebula_filter_icon)"/>
-                          <circle cx="256" cy="150" r="200" fill="#4b0082" opacity="0.15" filter="url(#nebula_filter_icon)"/>
-                          <circle cx="400" cy="400" r="120" fill="#ff71ce" opacity="0.1" filter="url(#nebula_filter_icon)"/>
-                          <circle cx="100" cy="100" r="130" fill="#01cdfe" opacity="0.08" filter="url(#nebula_filter_icon)"/>
-                          <path d="M-100 512 Q150 150 512 100" stroke="url(#galaxy_dust_grad_icon)" stroke-width="150" fill="none" filter="url(#nebula_filter_icon)"/>
+                        <g clip-path="url(#main_clip_nav)">
+                          <rect width="512" height="512" fill="url(#sky_grad_nav)"/>
+                          <circle cx="450" cy="50" r="150" fill="#ff00ff" opacity="0.12" filter="url(#nebula_filter_nav)"/>
+                          <circle cx="50" cy="450" r="180" fill="#00ffff" opacity="0.08" filter="url(#nebula_filter_nav)"/>
+                          <circle cx="256" cy="150" r="200" fill="#4b0082" opacity="0.15" filter="url(#nebula_filter_nav)"/>
+                          <circle cx="400" cy="400" r="120" fill="#ff71ce" opacity="0.1" filter="url(#nebula_filter_nav)"/>
+                          <circle cx="100" cy="100" r="130" fill="#01cdfe" opacity="0.08" filter="url(#nebula_filter_nav)"/>
+                          <path d="M-100 512 Q150 150 512 100" stroke="url(#galaxy_dust_grad_nav)" stroke-width="150" fill="none" filter="url(#nebula_filter_nav)"/>
                           <g opacity="0.6">
                             <circle cx="45" cy="88" r="0.8" fill="white" opacity="0.9"/>
                             <circle cx="112" cy="45" r="1.1" fill="white" opacity="0.7"/>
@@ -227,18 +228,18 @@
                             <circle cx="450" cy="150" r="0.6" fill="white" opacity="0.7"/>
                           </g>
                           <g transform="rotate(-20, 420, 80)">
-                            <line x1="280" y1="80" x2="440" y2="80" stroke="url(#shooting_star_grad_icon)" stroke-width="1.2" stroke-linecap="round" filter="url(#star_glow_icon)"/>
-                            <circle cx="440" cy="80" r="1.2" fill="white" filter="url(#star_glow_icon)"/>
-                          </linearGradient>
+                            <line x1="280" y1="80" x2="440" y2="80" stroke="url(#shooting_star_grad_nav)" stroke-width="1.2" stroke-linecap="round" filter="url(#star_glow_nav)"/>
+                            <circle cx="440" cy="80" r="1.2" fill="white" filter="url(#star_glow_nav)"/>
+                          </g>
                           <g transform="rotate(10, 100, 300)">
-                            <line x1="0" y1="300" x2="120" y2="300" stroke="url(#shooting_star_grad_icon)" stroke-width="0.8" stroke-linecap="round" opacity="0.4" filter="url(#star_glow_icon)"/>
-                            <circle cx="120" cy="300" r="0.8" fill="white" opacity="0.5" filter="url(#star_glow_icon)"/>
+                            <line x1="0" y1="300" x2="120" y2="300" stroke="url(#shooting_star_grad_nav)" stroke-width="0.8" stroke-linecap="round" opacity="0.4" filter="url(#star_glow_nav)"/>
+                            <circle cx="120" cy="300" r="0.8" fill="white" opacity="0.5" filter="url(#star_glow_nav)"/>
                           </g>
-                          <g filter="url(#aurora_glow_icon)">
-                            <path d="M-50 400 Q150 100 300 350 T560 200" stroke="url(#aurora_green_icon)" stroke-width="120" stroke-linecap="round" fill="none"/>
-                            <path d="M-50 450 Q200 150 350 400 T560 250" stroke="url(#aurora_cyan_icon)" stroke-width="80" stroke-linecap="round" fill="none"/>
+                          <g filter="url(#aurora_glow_nav)">
+                            <path d="M-50 400 Q150 100 300 350 T560 200" stroke="url(#aurora_green_nav)" stroke-width="120" stroke-linecap="round" fill="none"/>
+                            <path d="M-50 450 Q200 150 350 400 T560 250" stroke="url(#aurora_cyan_nav)" stroke-width="80" stroke-linecap="round" fill="none"/>
                           </g>
-                          <path d="M256 120L380 420H330L256 240L182 420H132L256 120Z" fill="white" filter="url(#logo_glow_icon)"/>
+                          <path d="M256 120L380 420H330L256 240L182 420H132L256 120Z" fill="white" filter="url(#logo_glow_nav)"/>
                           <path d="M256 120L310 250L256 230L202 250L256 120Z" fill="white" opacity="0.1"/>
                         </g>
                       </svg>
@@ -316,7 +317,7 @@
                     </div>
                     <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Manual & Readme</h3>
                     <p class="text-gray-400 mb-10 text-sm leading-relaxed">Essential documentation for installation, built-in cheat modules, and performance troubleshooting.</p>
-                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/279b1e94-8a7f-4e84-9b6f-e86485a9893f?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A28%3A30Z&rscd=attachment%3B+filename%3DREADME.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A27%3A50Z&ske=2026-04-25T23%3A28%3A30Z&sks=b&skv=2018-11-09&sig=7PpYSmXQCZr%2FoaF%2BoKryulmE8l1on3gCcksDHFotOcw%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1NjkzMywibmJmIjoxNzc3MTU2NjMzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.1vayWm9pndDKBnG5G8f_vVnsDLxik6DCTOd7qU5nOmw&response-content-disposition=attachment%3B%20filename%3DREADME.txt&response-content-type=application%2Foctet-stream'" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">Download README.txt</button>
+                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/279b1e94-8a7f-4e84-9b6f-e86485a9893f?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A28%3A30Z&rscd=attachment%3B+filename%3DREADME.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A27%3A50Z&ske=2026-04-25T23%3A28%3A30Z&sks=b&skv=2018-11-09&sig=7PpYSmXQCZr%2FoaF%2BoKryulmE8l1on3gCcksDHFotOcw%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1Njg2OCwibmJmIjoxNzc3MTU2NTY4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.1vayWm9pndDKBnG5G8f_vVnsDLxik6DCTOd7qU5nOmw&response-content-disposition=attachment%3B%20filename%3DREADME.txt&response-content-type=application%2Foctet-stream'" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">Download README.txt</button>
                     <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Version: 1.0.0</span>
                 </div>
             </div>
@@ -337,6 +338,7 @@
                 <button id="btn-features" onclick="showIssueTab('features')" class="issue-tab-btn px-4 py-4 text-xs font-black uppercase tracking-widest">Feature Requests</button>
             </div>
 
+            <!-- FAQ SECTION -->
             <div id="issue-faq" class="issue-tab-content grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="glass-card p-8 rounded-3xl">
                     <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Does this require an official account?</h3>
@@ -361,6 +363,14 @@
                 <div class="glass-card p-8 rounded-3xl">
                     <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Fullbright is flickering?</h3>
                     <p class="text-gray-400 text-sm">Custom shaders usually override the lightmap. Disable external shaders to use built-in Fullbright.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Virus Scanner Warnings?</h3>
+                    <p class="text-gray-400 text-sm">As an unsigned application that injects into game assets, false positives are common. Verify the source code on GitHub.</p>
+                </div>
+                <div class="glass-card p-8 rounded-3xl">
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Performance Note</h3>
+                    <p class="text-gray-400 text-sm">Enable "Performance Patches" in the Dashboard to optimize asset streaming for high-speed memory systems.</p>
                 </div>
             </div>
 
@@ -411,12 +421,12 @@
         </div>
     </main>
 
-    <!-- Page: Privacy (Updated) -->
+    <!-- Page: Privacy -->
     <main id="page-privacy" class="page-content pt-40 pb-32 px-6">
         <div class="max-w-4xl mx-auto">
             <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
                 <div class="accent-glow" style="top: -10%; right: -10%;"></div>
-                <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Privacy Policy</h2>
+                <h2 class="text-5xl font-black mb-14 uppercase italic aurora-gradient-text tracking-tighter header-fix">Security Policy</h2>
                 
                 <div class="grid grid-cols-1 gap-12 text-gray-300 text-base leading-relaxed">
                     <div class="flex gap-8 group">
@@ -445,7 +455,7 @@
         </div>
     </main>
 
-    <!-- Page: Terms (Updated) -->
+    <!-- Page: Terms -->
     <main id="page-tos" class="page-content pt-40 pb-32 px-6">
         <div class="max-w-4xl mx-auto">
             <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
@@ -472,7 +482,7 @@
         </div>
     </main>
 
-    <!-- Page: Legal (New) -->
+    <!-- Page: Legal -->
     <main id="page-legal" class="page-content pt-40 pb-32 px-6">
         <div class="max-w-4xl mx-auto">
             <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden">
@@ -492,13 +502,6 @@
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">Trademarks</h3>
                             <p class="text-base">"Minecraft" is a trademark of Mojang Synergies AB. All graphics, assets, and game code used by the launcher to facilitate gameplay are the intellectual property of their respective owners.</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col md:flex-row gap-10">
-                        <div class="text-blue-400 font-black text-3xl">03</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-sm mb-3 italic">EULA Compliance</h3>
-                            <p class="text-base">By using this launcher, you agree to comply with the official Minecraft EULA. Aurora merely acts as a bridge to facilitate game execution and local asset management.</p>
                         </div>
                     </div>
                 </div>
