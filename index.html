@@ -55,7 +55,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             filter: brightness(1.1);
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(0, 255, 149, 0.4);
@@ -69,7 +69,7 @@
             transition: all 0.3s ease;
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
@@ -117,13 +117,6 @@
             100% { opacity: 0.2; }
         }
 
-        .accent-glow {
-            position: absolute;
-            width: 500px; height: 500px; background: #B967FF;
-            filter: blur(140px); opacity: 0.1; z-index: -1;
-            animation: pulse-glow 15s infinite ease-in-out;
-        }
-
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #000105; }
         ::-webkit-scrollbar-thumb { background: #1a0a2e; border-radius: 10px; }
@@ -143,7 +136,7 @@
     <div class="page-bg"></div>
 
     <!-- Navigation Bar -->
-    <nav class="fixed w-full z-50 glass-nav py-4 px-6">
+    <nav class="fixed w-full z-50 glass-nav py-5 px-6">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4 cursor-pointer group" onclick="showPage('home')">
                 <div class="w-10 h-10 overflow-hidden rounded-lg shadow-2xl transition group-hover:scale-105">
@@ -189,13 +182,6 @@
                           <filter id="logo_glow_nav">
                             <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="white" flood-opacity="0.3"/>
                             <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="black" flood-opacity="0.6"/>
-                          </filter>
-                          <filter id="star_glow_nav">
-                            <feGaussianBlur stdDeviation="1.5" result="blur"/>
-                            <feMerge>
-                              <feMergeNode in="blur"/>
-                              <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
                           </filter>
                           <clipPath id="main_clip_nav">
                             <rect width="512" height="512" />
@@ -247,7 +233,7 @@
                 <span class="text-2xl font-black uppercase italic aurora-gradient-text tracking-tighter">Aurora</span>
             </div>
             
-            <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
+            <div class="hidden md:flex gap-8 text-[14px] font-black uppercase tracking-[0.25em] text-gray-500">
                 <button onclick="showPage('home')" class="hover:text-white transition">Home</button>
                 <button onclick="showPage('downloads')" class="hover:text-white transition">Downloads</button>
                 <button onclick="showPage('issues')" class="hover:text-amber-400 transition">Issues</button>
@@ -283,8 +269,8 @@
                 <button onclick="showPage('downloads')" class="btn-primary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95">
                     View Downloads
                 </button>
-                <button onclick="showPage('source')" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
-                    View Source
+                <button onclick="window.open('https://github.com/Justanuser-bits/Aroura-Launcher', '_blank')" class="btn-secondary px-14 py-5 rounded-2xl text-xl tracking-tight transition transform active:scale-95 text-center flex items-center justify-center gap-3">
+                    View Repository
                 </button>
             </div>
         </div>
@@ -292,33 +278,42 @@
 
     <!-- Page: Downloads -->
     <main id="page-downloads" class="page-content pt-40 pb-32 px-6">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-6xl font-black uppercase italic aurora-gradient-text mb-4 header-fix">Build Portal</h2>
-                <p class="text-gray-400 uppercase tracking-widest text-xs font-bold">Official Distribution Channels</p>
-            </div>
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-black uppercase italic aurora-gradient-text mb-4 header-fix">Build Portal</h2>
+            <p id="fetch-status" class="text-amber-500 font-bold uppercase tracking-widest text-[10px] mb-12 animate-pulse">Syncing with GitHub API...</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Windows Setup -->
-                <div class="glass-card rounded-[40px] p-12 flex flex-col items-center text-center transition hover:border-emerald-500/30">
-                    <div class="w-20 h-20 rounded-3xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-8">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <div class="glass-card rounded-[40px] p-10 flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                     </div>
-                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Windows Setup</h3>
-                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Official .exe installer for Windows. Automatically configures portable runtimes and path settings.</p>
-                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/9b937c65-212c-4c47-91b2-6655fa037466?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A09%3A21Z&rscd=attachment%3B+filename%3DAuroraLauncher_Setup.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A08%3A29Z&ske=2026-04-25T23%3A09%3A21Z&sks=b&skv=2018-11-09&sig=3eahuysAo3c%2BeueempnX1kNQoGoBG6x%2FsYvF%2F3ffJTQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1Njg2OCwibmJmIjoxNzc3MTU2NTY4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.21XZ-64qopkLaInFInirO-7lVTjX3b8N1zmztpU0dwU&response-content-disposition=attachment%3B%20filename%3DAuroraLauncher_Setup.exe&response-content-type=application%2Foctet-stream'" class="btn-primary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em]">Download .exe Installer</button>
-                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Build 1.0.0-Master</span>
+                    <h3 class="text-2xl font-black mb-3 text-white uppercase italic">Installer</h3>
+                    <p class="text-gray-400 mb-8 text-xs leading-relaxed">Official .exe setup. Manages Java and accounts automatically.</p>
+                    <button id="dl-exe" disabled class="btn-primary w-full py-4 rounded-xl text-xs uppercase tracking-widest opacity-50 cursor-not-allowed">Fetching...</button>
+                    <span id="ver-exe" class="text-[9px] text-gray-500 mt-5 font-bold tracking-widest uppercase">Version: 1.1.0</span>
                 </div>
 
-                <!-- README Documentation -->
-                <div class="glass-card rounded-[40px] p-12 flex flex-col items-center text-center transition hover:border-purple-500/30">
-                    <div class="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-8">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <!-- README Card -->
+                <div class="glass-card rounded-[40px] p-10 flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-400 mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg>
                     </div>
-                    <h3 class="text-3xl font-black mb-4 text-white uppercase italic tracking-tight">Manual & Readme</h3>
-                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Essential documentation for installation, built-in cheat modules, and performance troubleshooting.</p>
-                    <button onclick="window.location.href='https://release-assets.githubusercontent.com/github-production-release-asset/1221075737/279b1e94-8a7f-4e84-9b6f-e86485a9893f?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-04-25T23%3A28%3A30Z&rscd=attachment%3B+filename%3DREADME.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-04-25T22%3A27%3A50Z&ske=2026-04-25T23%3A28%3A30Z&sks=b&skv=2018-11-09&sig=7PpYSmXQCZr%2FoaF%2BoKryulmE8l1on3gCcksDHFotOcw%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3NzE1Njg2OCwibmJmIjoxNzc3MTU2NTY4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.1vayWm9pndDKBnG5G8f_vVnsDLxik6DCTOd7qU5nOmw&response-content-disposition=attachment%3B%20filename%3DREADME.txt&response-content-type=application%2Foctet-stream'" class="btn-secondary w-full py-5 rounded-2xl text-sm uppercase tracking-[0.2em] text-center">Download README.txt</button>
-                    <span class="text-[10px] text-gray-500 mt-6 uppercase font-bold tracking-widest">Version: 1.0.0</span>
+                    <h3 class="text-2xl font-black mb-3 text-white uppercase italic">Manual</h3>
+                    <p class="text-gray-400 mb-8 text-xs leading-relaxed">Technical documentation, module guides, and setup steps.</p>
+                    <button id="dl-readme" disabled class="btn-secondary w-full py-4 rounded-xl text-xs uppercase tracking-widest opacity-50 cursor-not-allowed">Fetching...</button>
+                    <span id="ver-readme" class="text-[9px] text-gray-500 mt-5 font-bold tracking-widest uppercase">README.txt</span>
+                </div>
+
+                <!-- Source Card -->
+                <div class="glass-card rounded-[40px] p-10 flex flex-col items-center">
+                    <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-6">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3 class="text-2xl font-black mb-3 text-white uppercase italic">Source</h3>
+                    <p class="text-gray-400 mb-8 text-xs leading-relaxed">The complete project codebase in a compressed archive.</p>
+                    <button id="dl-source" disabled class="btn-secondary w-full py-4 rounded-xl text-xs uppercase tracking-widest opacity-50 cursor-not-allowed">Fetching...</button>
+                    <span id="ver-source" class="text-[9px] text-gray-500 mt-5 font-bold tracking-widest uppercase">CODEBASE.zip</span>
                 </div>
             </div>
         </div>
@@ -345,50 +340,20 @@
                     <p class="text-gray-400 text-sm">Aurora supports both Microsoft official login for skins and servers, and Offline mode for local play.</p>
                 </div>
                 <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Is the built-in X-Ray detectable?</h3>
-                    <p class="text-gray-400 text-sm">Our X-Ray uses custom resource-pack injection. It is undetectable by standard client-side checks.</p>
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Is login permanent?</h3>
+                    <p class="text-gray-400 text-sm">Yes. In v1.1.0, session tokens are saved locally in accounts.json so you stay logged in permanently.</p>
                 </div>
                 <div class="glass-card p-8 rounded-3xl">
                     <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Why does it install Java 21?</h3>
                     <p class="text-gray-400 text-sm">Modern versions require it. Aurora provisions a portable JDK 21 automatically to keep your system clean.</p>
                 </div>
                 <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Fixing Mod Conflicts</h3>
-                    <p class="text-gray-400 text-sm">Check the Mod Manager. Ensure you aren't mixing Fabric and Forge versions for the same game session.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Optimizing RAM Usage</h3>
-                    <p class="text-gray-400 text-sm">2GB-4GB is recommended. Set this in the Settings tab to ensure smooth gameplay on older hardware.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Fullbright is flickering?</h3>
-                    <p class="text-gray-400 text-sm">Custom shaders usually override the lightmap. Disable external shaders to use built-in Fullbright.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Virus Scanner Warnings?</h3>
-                    <p class="text-gray-400 text-sm">As an unsigned application that injects into game assets, false positives are common. Verify the source code on GitHub.</p>
-                </div>
-                <div class="glass-card p-8 rounded-3xl">
-                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Performance Note</h3>
-                    <p class="text-gray-400 text-sm">Enable "Performance Patches" in the Dashboard to optimize asset streaming for high-speed memory systems.</p>
+                    <h3 class="text-white font-black uppercase tracking-wider text-sm mb-3">Is the built-in X-Ray detectable?</h3>
+                    <p class="text-gray-400 text-sm">Our X-Ray uses custom resource-pack injection. It is undetectable by standard client-side checks.</p>
                 </div>
             </div>
 
             <div id="issue-bugs" class="issue-tab-content hidden text-center">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <div class="glass-card p-8 rounded-3xl border-l-4 border-red-500">
-                        <h4 class="text-red-400 font-black uppercase text-xs mb-2">Critical</h4>
-                        <p class="text-gray-300 text-sm">Crashes or failures.</p>
-                    </div>
-                    <div class="glass-card p-8 rounded-3xl border-l-4 border-orange-500">
-                        <h4 class="text-orange-400 font-black uppercase text-xs mb-2">Minor</h4>
-                        <p class="text-gray-300 text-sm">Module glitches.</p>
-                    </div>
-                    <div class="glass-card p-8 rounded-3xl border-l-4 border-blue-500">
-                        <h4 class="text-blue-400 font-black uppercase text-xs mb-2">Small</h4>
-                        <p class="text-gray-300 text-sm">UI or text errors.</p>
-                    </div>
-                </div>
                 <a href="https://github.com/Justanuser-bits/Aroura-Launcher/issues/new?template=bug_report.md" target="_blank" class="btn-primary px-12 py-5 rounded-2xl text-sm uppercase tracking-widest inline-block">Report Bug on GitHub</a>
             </div>
 
@@ -397,25 +362,6 @@
                     <h3 class="text-2xl font-black text-white uppercase italic mb-6">Submit a Request</h3>
                     <p class="text-gray-400 text-sm mb-10">All feature requests are tracked on our GitHub repository to allow the community to vote and discuss.</p>
                     <a href="https://github.com/Justanuser-bits/Aroura-Launcher/issues/new?template=feature_request.md" target="_blank" class="btn-primary px-12 py-5 rounded-2xl text-sm uppercase tracking-widest inline-block">Propose Feature</a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Page: Source Restricted -->
-    <main id="page-source" class="page-content pt-40 pb-32 px-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="glass-card rounded-[48px] p-12 md:p-20 relative overflow-hidden text-center">
-                <div class="accent-glow" style="top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff4b4b; opacity: 0.05;"></div>
-                <div class="w-20 h-20 rounded-3xl bg-red-500/10 flex items-center justify-center text-red-400 mx-auto mb-8">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-                </div>
-                <h2 class="text-5xl font-black mb-8 uppercase italic aurora-gradient-text tracking-tighter header-fix">Access Restricted</h2>
-                <p class="text-gray-300 text-lg leading-relaxed max-w-lg mx-auto">
-                    oops this file is ither gone or not uploaded yet, please wait! The repository is currently undergoing final synchronization for the Master Release.
-                </p>
-                <div class="mt-12">
-                    <button onclick="showPage('home')" class="btn-secondary px-8 py-3 rounded-xl text-sm uppercase tracking-widest">Return Home</button>
                 </div>
             </div>
         </div>
@@ -433,21 +379,7 @@
                         <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">01</div>
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Data Sovereignty</h3>
-                            <p>All authentication tokens, game logs, and account details are stored locally in your `minecraft_data` folder. We do not maintain a central server for user data storage.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-8 group">
-                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">02</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Authentication</h3>
-                            <p>Microsoft logins are performed using official secure OAuth standards. Your password is never seen or stored by the launcher; only a local session token is managed to keep you signed in.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-8 group">
-                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">03</div>
-                        <div>
-                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Analytics & Tracking</h3>
-                            <p>Aurora Launcher does not contain telemetry, tracking scripts, or usage analytics. We believe in a focused experience where your activity remains private to your device.</p>
+                            <p>All authentication tokens, game logs, and account details are stored locally on your device. We do not use a central server for user data storage.</p>
                         </div>
                     </div>
                 </div>
@@ -509,7 +441,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="py-24 border-t border-white/5 text-center px-6">
         <div class="mb-8 opacity-20 hover:opacity-40 transition grayscale cursor-pointer" onclick="showPage('home')">
             <svg width="32" height="32" viewBox="0 0 512 512" class="mx-auto" fill="white">
@@ -522,6 +453,51 @@
     </footer>
 
     <script>
+        const REPO = "Justanuser-bits/Aroura-Launcher";
+
+        async function initFetcher() {
+            try {
+                const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+                const data = await res.json();
+                
+                if (data.assets) {
+                    const exe = data.assets.find(a => a.name.endsWith('.exe'));
+                    const readme = data.assets.find(a => a.name === 'README.txt');
+                    const sourceUrl = data.zipball_url;
+
+                    if (exe) setupButton('dl-exe', exe.browser_download_url, "Download Installer", 'ver-exe', data.tag_name);
+                    if (readme) setupButton('dl-readme', readme.browser_download_url, "Download Manual", 'ver-readme', data.tag_name);
+                    if (sourceUrl) setupButton('dl-source', sourceUrl, "Download Source", 'ver-source', data.tag_name);
+                    
+                    document.getElementById('fetch-status').innerText = "Direct Assets Linked: Version " + data.tag_name;
+                    document.getElementById('fetch-status').classList.replace('text-amber-500', 'text-emerald-500');
+                    document.getElementById('fetch-status').classList.remove('animate-pulse');
+                }
+            } catch (e) {
+                document.getElementById('fetch-status').innerText = "GitHub API Connection Failed.";
+            }
+        }
+
+        /**
+         * Triggers a direct download from the provided URL.
+         */
+        function setupButton(btnId, url, text, verId, ver) {
+            const btn = document.getElementById(btnId);
+            btn.innerText = text;
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            // Direct download execution using anchor click
+            btn.onclick = () => {
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', '');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+            document.getElementById(verId).innerText = "Release Tag: " + ver;
+        }
+
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(page => {
@@ -553,13 +529,15 @@
             const buttons = document.querySelectorAll('.issue-tab-btn');
             tabs.forEach(t => t.classList.add('hidden'));
             buttons.forEach(b => b.classList.remove('active'));
-            
             document.getElementById('issue-' + tabId).classList.remove('hidden');
             document.getElementById('btn-' + tabId).classList.add('active');
         }
 
         window.onpopstate = () => showPage(window.location.hash.replace('#', '') || 'home');
-        window.onload = () => showPage(window.location.hash.replace('#', '') || 'home');
+        window.onload = () => {
+            initFetcher();
+            showPage(window.location.hash.replace('#', '') || 'home');
+        };
     </script>
 </body>
 </html>
