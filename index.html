@@ -379,7 +379,21 @@
                         <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">01</div>
                         <div>
                             <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Data Sovereignty</h3>
-                            <p>All authentication tokens, game logs, and account details are stored locally on your device. We do not use a central server for user data storage.</p>
+                            <p>All authentication tokens, game logs, and account details are stored locally in your `minecraft_data` folder. We do not maintain a central server for user data storage.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">02</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Authentication</h3>
+                            <p>Microsoft logins are performed using official secure OAuth standards. Your password is never seen or stored by the launcher; only a local session token is managed to keep you signed in.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-8 group">
+                        <div class="text-emerald-400 font-black text-4xl opacity-40 group-hover:opacity-100 transition-opacity">03</div>
+                        <div>
+                            <h3 class="text-white uppercase tracking-[0.3em] font-black text-xs mb-3 italic">Analytics & Tracking</h3>
+                            <p>Aurora Launcher does not contain telemetry, tracking scripts, or usage analytics. We believe in a focused experience where your activity remains private to your device.</p>
                         </div>
                     </div>
                 </div>
@@ -441,6 +455,7 @@
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="py-24 border-t border-white/5 text-center px-6">
         <div class="mb-8 opacity-20 hover:opacity-40 transition grayscale cursor-pointer" onclick="showPage('home')">
             <svg width="32" height="32" viewBox="0 0 512 512" class="mx-auto" fill="white">
@@ -461,13 +476,18 @@
                 const data = await res.json();
                 
                 if (data.assets) {
-                    const exe = data.assets.find(a => a.name.endsWith('.exe'));
+                    // REQUIREMENT: Download "AuroraLauncher_Setup.exe" for Installer
+                    const exe = data.assets.find(a => a.name === 'AuroraLauncher_Setup.exe');
+                    
+                    // REQUIREMENT: Download "README.txt" for Manual
                     const readme = data.assets.find(a => a.name === 'README.txt');
-                    const sourceUrl = data.zipball_url;
+                    
+                    // REQUIREMENT: Download "ArouraLauncher-v1.1.0.zip" for Source
+                    const source = data.assets.find(a => a.name === 'ArouraLauncher-v1.1.0.zip');
 
-                    if (exe) setupButton('dl-exe', exe.browser_download_url, "Download Installer", 'ver-exe', data.tag_name);
-                    if (readme) setupButton('dl-readme', readme.browser_download_url, "Download Manual", 'ver-readme', data.tag_name);
-                    if (sourceUrl) setupButton('dl-source', sourceUrl, "Download Source", 'ver-source', data.tag_name);
+                    if (exe) setupButton('dl-exe', exe.browser_download_url, "Download .exe", 'ver-exe', data.tag_name);
+                    if (readme) setupButton('dl-readme', readme.browser_download_url, "Download README", 'ver-readme', data.tag_name);
+                    if (source) setupButton('dl-source', source.browser_download_url, "Download .zip", 'ver-source', data.tag_name);
                     
                     document.getElementById('fetch-status').innerText = "Direct Assets Linked: Version " + data.tag_name;
                     document.getElementById('fetch-status').classList.replace('text-amber-500', 'text-emerald-500');
@@ -486,7 +506,7 @@
             btn.innerText = text;
             btn.disabled = false;
             btn.classList.remove('opacity-50', 'cursor-not-allowed');
-            // Direct download execution using anchor click
+            // REQUIREMENT: Direct download without redirecting to releases page
             btn.onclick = () => {
                 const link = document.createElement('a');
                 link.href = url;
